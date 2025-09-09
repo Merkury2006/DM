@@ -1,17 +1,8 @@
-def ArrowPier(x, y):
-    return not x and not y
+from function import f
 
-
-def Xor(x, y):
-    return (x and not y) or (not x and y)
-
-
-def f(x, y, z):
-    return Xor(not x, y) or ArrowPier(z, not (x and not z))
-
-
-print("x y z f fx fy fz")
+print("| x | y | z | f | fx | fy | fz |")
 fict_per = [True, True, True]
+
 for x in range(2):
     for y in range(2):
         for z in range(2):
@@ -28,7 +19,7 @@ for x in range(2):
                     fict_per[i] = False
                 curResults.append(int(curResult))
 
-            print(f"{x} {y} {z} {int(result)} {curResults[0]}  {curResults[1]}  {curResults[2]}")
+            print(f"| {x} | {y} | {z} | {int(result)} | {curResults[0]}  |  {curResults[1]} | {curResults[2]}  |")
 
 print(f"Фиктивная переменная x: {'Да' if fict_per[0] else 'Нет'}")
 print(f"Фиктивная переменная y: {'Да' if fict_per[1] else 'Нет'}")
