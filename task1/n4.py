@@ -1,4 +1,4 @@
-from function import f
+from task1.function import f
 
 def dual_f(x, y, z):
     return not f(not x, not y, not z)

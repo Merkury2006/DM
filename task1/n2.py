@@ -1,4 +1,4 @@
-from function import f
+from task1.function import f
 
 
 print("| x | y | z | f |")
