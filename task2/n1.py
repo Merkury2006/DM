@@ -1,10 +1,6 @@
-import taskСondition
+from taskСondition import a, b, c, n
 from sympy import symbols, solve, pprint, Eq
 
-a = taskСondition.a
-b = taskСondition.b
-c = taskСondition.c
-n = taskСondition.n
 q = symbols('q')
 
 equation = q**3 - a * q**2 - b * q - c #Решение характеристического уравнения
@@ -12,7 +8,7 @@ roots = solve(equation, q)
 
 roots.sort()
 i = 0
-generalHomogeneousA = 0 #(an)общее однородное
+generalHomogeneousSolution = 0 #(an)общее однородное
 
 while i < len(roots):
     r = roots[i]
@@ -20,11 +16,11 @@ while i < len(roots):
 
     if multiplicity == 1: #k = 1
         c = symbols(f'C{i + 1}')
-        generalHomogeneousA += (c * r**n)
+        generalHomogeneousSolution += (c * r**n)
     else: #k = 2
-        for j in range(multiplicity):
+        for j in range(multiplicity): #Последовательно прибавляем C по другой формуле
             c = symbols(f'C{i + j + 1}')
-            generalHomogeneousA += (c * n**j * r**n)
+            generalHomogeneousSolution += (c * n**j * r**n)
 
     i += multiplicity
 
@@ -36,4 +32,4 @@ print("Корни характеристического уравнения:", e
 pprint(roots)
 print()
 print("Общее решение ЛОРС:")
-pprint(generalHomogeneousA)
+pprint(generalHomogeneousSolution)
