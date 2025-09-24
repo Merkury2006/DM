@@ -32,4 +32,5 @@ print("Корни характеристического уравнения:", e
 pprint(roots)
 print()
 print("Общее решение ЛОРС:")
+
 pprint(generalHomogeneousSolution)
