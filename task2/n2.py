@@ -18,7 +18,6 @@ def makePrivateHeterogeneousExpression(expression, variable, roots):
 
     coefficients = symbols([f'{chr(i + 65)}' for i in range(m + 1)]) #Формируем список символов для полинома
     Qm_n= sum(coefficients[i] * variable ** i for i in range(m + 1)) #Формируем полином с символами
-
     return Qm_n * t ** variable * variable ** s #Qm(n) * t^n * n^s
 
 
