@@ -31,8 +31,7 @@ class TuringMachine:
             key = (self.current_state, self.get_current_symbol())  #Формируем ключ для нашей таблицы переходов
 
             if key not in self.transition_functions:
-                raise Exception(f"Машина Тьюринга не применима к данному слову. Переход далее невозможен. \nТекущее состояние ИИ: {self.current_state}, текущий символ: {self.get_current_symbol()}."
-                                f"Данного перехода нет в программе МТ.")
+               return False
 
             new_state, new_symbol, direction = self.transition_functions[key]  #Достаем значение из таблицы переходов по ключу
 
@@ -65,6 +64,9 @@ class TuringMachine:
                 if verbose:
                     print(f"Конечное состояние: состояние УУ={self.current_state}, конечное слово= {self.get_tape_string()}")
                     print(f"указатель головки={self.head_position + 1}" + "\n")
+                    if ((self.current_state, self.get_current_symbol()) not in self.transition_functions):
+                        print(f"Перехода ({self.current_state},{self.get_current_symbol()}) нет в программе Машины Тьюринга")
+                    print("Машина Тьюринга применима к данному слову")
             except Exception as e:
                 if verbose:
                     print(f"Ошибка: {e}")
