@@ -62,11 +62,13 @@ class TuringMachine:
                         print(f"Шаг {self.step_count + 1}: состояние УУ={self.current_state}, текущее слово= {self.get_tape_string()}")
                         print(f"указатель головки={self.head_position + 1}" + "\n")
                 if verbose:
-                    print(f"Конечное состояние: состояние УУ={self.current_state}, конечное слово= {self.get_tape_string()}")
-                    print(f"указатель головки={self.head_position + 1}" + "\n")
                     if ((self.current_state, self.get_current_symbol()) not in self.transition_functions):
                         print(f"Перехода ({self.current_state},{self.get_current_symbol()}) нет в программе Машины Тьюринга")
+                    else:
+                        print(f"Машина Тьюринга достигла своего заключительного состояния: {self.current_state}")
                     print("Машина Тьюринга применима к данному слову")
+                    print(f"T(P) = {self.get_tape_string().rstrip(self.blank_symbol)}")
+                    print(f"Заключительное состояние: {' '.join(list(self.tape[:-1]))} {self.current_state} {self.blank_symbol}")
             except Exception as e:
                 if verbose:
                     print(f"Ошибка: {e}")
