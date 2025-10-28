@@ -45,7 +45,7 @@ class TuringMachine:
             elif direction == 'L':
                 self.head_position -= 1
             elif direction == 'S':
-                return False
+                self.head_position = self.head_position
 
             if self.head_position >= len(self.tape):  #Динамически расширяем ленту, если индекс вышел за пределы списка (лента МТ бесконечна)
                 self.tape.append(self.blank_symbol)
