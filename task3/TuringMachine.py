@@ -35,15 +35,17 @@ class TuringMachine:
 
             new_state, new_symbol, direction = self.transition_functions[key]  #Достаем значение из таблицы переходов по ключу
 
+            self.tape[self.head_position] = new_symbol  # Изменяем символ нашей ленты
+
             self.current_state = new_state  # Делаем переход в новое состояние
             self.step_count += 1
 
-            self.tape[self.head_position] = new_symbol  #Изменяем символ нашей ленты
-
-            if direction == 'R':            #По направлению меняем указатель головки
+            if direction == 'R':  # По направлению меняем указатель головки
                 self.head_position += 1
             elif direction == 'L':
                 self.head_position -= 1
+            elif direction == 'S':
+                return False
 
             if self.head_position >= len(self.tape):  #Динамически расширяем ленту, если индекс вышел за пределы списка (лента МТ бесконечна)
                 self.tape.append(self.blank_symbol)
@@ -62,13 +64,25 @@ class TuringMachine:
                         print(f"Шаг {self.step_count + 1}: состояние УУ={self.current_state}, текущее слово= {self.get_tape_string()}")
                         print(f"указатель головки={self.head_position + 1}" + "\n")
                 if verbose:
-                    if ((self.current_state, self.get_current_symbol()) not in self.transition_functions):
+                    if self.current_state not in self.final_states:
                         print(f"Перехода ({self.current_state},{self.get_current_symbol()}) нет в программе Машины Тьюринга")
                     else:
                         print(f"Машина Тьюринга достигла своего заключительного состояния: {self.current_state}")
                     print("Машина Тьюринга применима к данному слову")
                     print(f"T(P) = {self.get_tape_string().rstrip(self.blank_symbol)}")
-                    print(f"Заключительное состояние: {' '.join(list(self.tape[:-1]))} {self.current_state} {self.blank_symbol}")
+
+
+                    index = 0
+                    for x in self.tape:
+                        if x != self.blank_symbol:
+                            break
+                        index += 1
+                    if (self.head_position < index + 1):
+                        print("Машина Тьюринга правильно вычисляет f(x)")
+
+
+                    self.tape.insert(self.head_position, self.current_state)
+                    print(f"Заключительное состояние: {' '.join(self.tape)}")
             except Exception as e:
                 if verbose:
                     print(f"Ошибка: {e}")
@@ -76,3 +90,6 @@ class TuringMachine:
         def get_tape_string(self):
             result = " ".join(self.tape)
             return result if result else self.blank_symbol
+
+        def get_tape_test(self):
+            return self.tape
