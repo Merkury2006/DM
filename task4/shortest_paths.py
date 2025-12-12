@@ -1,5 +1,3 @@
-import os
-
 import pandas as pd
 
 import networkx as nx
@@ -16,27 +14,43 @@ def calculate_shortest_paths(G, source):
         return {}, {}
 
 
-def save_shortest_paths_to_csv(G, source, target, lengths, paths, filename='n2.csv'):
-    """Сохраняет пути в таблицу"""
-
+def save_shortest_paths_to_table(G, source, target, lengths, paths, filename='n2.xlsx'):
+    """Сохраняет в таблицу"""
     data = []
+
     for node in sorted(G.nodes()):
         if node == source:
             continue
 
-        if node == target:
-            path_str = ' → '.join(map(str, paths[node]))
-            data.append(['T', lengths[node], path_str])
-
-        elif node in lengths and lengths[node] != float('inf'):
-            path_str = ' → '.join(map(str, paths[node]))
-            data.append([node, lengths[node], path_str])
-
+        if node in paths:
+            # Заменяем 0 на S, 7 на T
+            path_list = []
+            for v in paths[node]:
+                if v == source:
+                    path_list.append('S')
+                elif v == target:
+                    path_list.append('T')
+                else:
+                    path_list.append(str(v))
+            path_str = ' → '.join(path_list)
         else:
-            data.append([node, 0, 'недостижима'])
+            path_str = 'недостижима'
+
+        # Имя вершины
+        if node == target:
+            vertex_name = 'T'
+        else:
+            vertex_name = str(node)
+
+        # Длина
+        if node in lengths and lengths[node] != float('inf'):
+            path_len = lengths[node]
+        else:
+            path_len = 0
+
+        data.append([vertex_name, path_len, path_str])
 
     df = pd.DataFrame(data, columns=['Вершина', 'Длина', 'Путь'])
 
-    df.to_csv(filename, sep=';', index=False, encoding='utf-8-sig')
-
-    print(f"Таблица сохранена в '{filename}'")
+    df.to_excel(filename, index=False)
+    print(f"Файл сохранен в '{filename}'")

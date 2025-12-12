@@ -1,9 +1,9 @@
 import os
 from task4.graph_generator import generate_planar_flow_network,create_set_graph
-from task4.shortest_paths import calculate_shortest_paths, save_shortest_paths_to_csv
+from task4.shortest_paths import calculate_shortest_paths, save_shortest_paths_to_table
 from task4.vizualization import visualize_graph_with_shortest_path
 
-def open_file(filename='n2.csv'):
+def open_file(filename):
     try:
         if os.name == 'nt':
             os.startfile(filename)
@@ -23,7 +23,7 @@ def main():
         (2, 5, 5), (3, 6, 4)
     ]
     path_to_img = 'n3.png'
-    path_to_table = 'n2.csv'
+    path_to_table = 'n2.xlsx'
 
     # Начальный этап - генерация графа
     print("1. Генерация планарного орграфа")
@@ -43,7 +43,7 @@ def main():
     # Задание 2
     lengths, paths = calculate_shortest_paths(G, source)
 
-    save_shortest_paths_to_csv(G, source, target, lengths, paths, path_to_table)
+    save_shortest_paths_to_table(G, source, target, lengths, paths, path_to_table)
 
     open_file(path_to_table)
 
