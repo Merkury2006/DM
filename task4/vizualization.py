@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def visualize_graph_with_shortest_path(G, source, target, paths, lengths, filename='result.png'):
+def visualize_graph_with_shortest_path(G, source, target, paths, lengths, filename='vizualization.png'):
     """Визуализирует граф с кратчайшим путём source-target"""
 
     # Создаём фигуру
