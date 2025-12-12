@@ -158,7 +158,7 @@ def orient_graph(undirected_g, source, target):
     return G
 
 
-def generate_planar_flow_network(n=8, m=11, source=0, target=7, debug=False):
+def generate_planar_flow_network(n=8, m=11, source=0, target=7):
     """
     Генерирует ориентированный планарный граф
     """
@@ -172,3 +172,22 @@ def generate_planar_flow_network(n=8, m=11, source=0, target=7, debug=False):
     directed = orient_graph(undirected, source, target)
 
     return directed
+
+
+def create_set_graph(edges=None, n=8):
+    """Создаёт ориентированный граф из заданного списка рёбер."""
+    if edges is None:
+        edges = [
+            (0, 1, 5), (0, 2, 3), (1, 3, 2),
+            (2, 3, 4), (3, 4, 6), (4, 5, 3),
+            (5, 6, 2), (6, 7, 4), (1, 4, 3),
+            (2, 5, 5), (3, 6, 4)
+        ]
+
+    G = nx.DiGraph()
+    G.add_nodes_from(range(n))
+
+    for edge in edges:
+        u, v, weight = edge
+        G.add_edge(u, v, weight=weight)
+    return G
